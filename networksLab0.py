@@ -40,34 +40,24 @@ requestType = "ex0"
 conSpec     = serverName + "-" +str(serverPort) + " " + clientName[0] + "-" +str(clientName[1])
 usernum     = random.randrange(0,9000)
 username    = "A.S.Nguyen"
-newline     = r"\n"
+newline     = '\n'
 request     = requestType+" "+conSpec+" "+str(usernum)+" "+username+newline
 
 print request
 
 #Write the client request string to the socket (using send()) 
-clientSocket.send(request)
+clientSocket.sendall(request.encode())
+#clientSocket.setblocking(0)
 #Read data from the socket (using recv()) until the SECOND newline character
 #is encountered. Verfy that the first word on the second line is "OK", the 
 #value of username+1, and output the recieve random number (servernum). If 
 #word is not "OK", print an error indication and recieved string
 #Anthony Note: TCP is a streaming. will need a buffer and will need to read
 #byte by byte to see if there is a second "\n" and thats when i stop the read.
-need_to_read = True
-mybuffer = ''
-newline_c = 0
-while need_to_read:
-	print newline_c
-	data = clientSocket.recv(4096)
-	mybuffer += data
-	if data.endswith("\n"):
-		newline_c += 1
-	if data == "\n":
-		newline_c += 1
-	if newline_c >=2:
-		break
-print mybuffer
-
+data1 = clientSocket.recv(4096)
+data2 = clientSocket.recv(4096)
+print data1
+print data2
 
 #Contruct an ack string and write it to the socket (using send())
 
