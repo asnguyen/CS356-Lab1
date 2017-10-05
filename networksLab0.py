@@ -17,9 +17,11 @@ serverName = "128.83.144.56" 					#paris.cs.utexas.edu
 serverPort = 35601 								#can be 35601, 35602, or 35603
 try:
 	clientSocket = socket(AF_INET,SOCK_STREAM)
+	#
 	print "Socket successfully created"
 except socket.error as err:
 	print "socket creation failed with error %s" %(err)
+
 
 #Call connect() with the server's IP address () and port number() to 
 #initiate a connection to the server. If unsuccessful, print out the reason
@@ -27,7 +29,7 @@ except socket.error as err:
 try:
 	clientSocket.connect((serverName,serverPort))
 	print "Socket successfully connected"
-except socket.error as err:
+except socket.gaierror as err:
 	print "socket failed to connect because %s" %(err)
 
 #generate a integer from 0-9000(usernum). Construct a request string using
@@ -45,14 +47,25 @@ request     = requestType+" "+conSpec+" "+str(usernum)+" "+username+newline
 print request
 
 #Write the client request string to the socket (using send()) 
-clientSocket.send(request.encode())
-
+clientSocket.send(request)
 #Read data from the socket (using recv()) until the SECOND newline character
 #is encountered. Verfy that the first word on the second line is "OK", the 
-#value of username+1, and outpit the recieve random number (servernum). If 
+#value of username+1, and output the recieve random number (servernum). If 
 #word is not "OK", print an error indication and recieved string
-serverReturn = clientSocket.recv(1024)
-print serverReturn.decode()
+#Anthony Note: TCP is a streaming. will need a buffer and will need to read
+#byte by byte to see if there is a second "\n" and thats when i stop the read.
+need_to_read = True
+mybuffer = ''
+newline_c = 0
+while need_to_read:
+	data = clientSocket.recv(1)
+	mybuffer += data
+	if data == "\n":
+		newline_c += 1
+	if newline_c >=2:
+		break
+print mybuffer
+
 
 #Contruct an ack string and write it to the socket (using send())
 
