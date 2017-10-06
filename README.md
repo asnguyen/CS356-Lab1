@@ -1,7 +1,6 @@
-# CS356-Lab1
-Project for Lab1
+Anthony Nguyen - asn579
 
-
+RESULTS FOR LAB0 EXCERISE 0
 leo.cs.utexas.edu
 Client -> Server: ex0 128.83.144.56-35601 128.83.139.252-50408 1276 A.S.Nguyen
 Server -> Client: CS 356 Server Thu Oct 05 23:33:43 CDT 2017
@@ -10,7 +9,7 @@ Client -> Server: ex0 1277 4433673
 Server -> Client: CS 356 Server Thu Oct 05 23:33:43 CDT 2017 OK 4433673
 
 
-
+RESULT FOR LAB0 EXERCISE 1
 lepus.cs.utexas.edu
 Client -> Server: ex1 128.83.144.56-35601 128.83.139.253-50481 6364 A.S.Nguyen
 Server -> Client: CS 356 Server Fri Oct 06 01:03:09 CDT 2017
